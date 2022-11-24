@@ -1,4 +1,4 @@
-# estacao_meteorologica
+# Estação Meotorológica
 Estação Meteorológica para Disciplina de Programação de Sistemas Embarcados
 
 Arquivo principal do Computador: main.cpp
