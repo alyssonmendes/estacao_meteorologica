@@ -1,7 +1,9 @@
 #include <iostream>
 #include <ctime>
 #include<fstream>
-#include "..\Computador\Fila.cpp"
+#include <string>
+#include "fila.cpp"
+#include "mySerial.cpp"
 
 using namespace std;
 
@@ -9,6 +11,8 @@ void readTemp();
 
 void sendSerial();
 Fila<float> temp;
+mySerial serial("/dev/ttyAMA0", 115200);
+string dados;
 
 void sendSerial()  //Envia um nodo da fila
 {
@@ -19,10 +23,12 @@ void sendSerial()  //Envia um nodo da fila
     for(int i = 0; i < tam; i++ )
     {
         saida << temp.readFirst();
+        dados = temp.readFirst();
         temp.removeFirst();
 
     }
     saida.close();
+    serial.Send(dados);
 }
 
 void readTemp()
