@@ -20,7 +20,7 @@
 using namespace std;
 
 template <class T>
-class Node : public ClockCalendar{
+class Node{
     T val;
     Node* next;
     ClockCalendar* dataHora;
@@ -28,10 +28,11 @@ class Node : public ClockCalendar{
 
   public:
     Node<T>(T dat, Node* nxt, ClockCalendar*  dataHora, int idt);
+    Node(T dat, Node* nxt, int idt, int d, int m, int y, int h,int min,int s);
     ~Node();
     T getVal();
     int getId();
-        //void getDataHora(int d, int m, int y, int h, int min, int sec, bool pm);
+    void getDataHora(int& d, int& m, int& y, int& h, int& min, int& sec, bool& pm);
     Node* getNext();
     void setVal(T dat);
     void setNext(Node* nxt);

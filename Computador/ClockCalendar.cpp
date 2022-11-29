@@ -1,7 +1,6 @@
 #include "ClockCalendar.h"
 
 
-
 time_t now;
 tm* ltm = localtime(&now);
 
@@ -39,8 +38,23 @@ ClockCalendar::ClockCalendar():Clock (), Calendar ()
         is_pm = 1;
     else
         is_pm = 0;
+
 }
 
+Calendar::Calendar(int d, int m, int y){
+  mo =m;
+  day = d;
+  yr = y;
+ }
+Clock::Clock(int h, int m, int s, bool pm){
+  hr=h;
+  min=m;
+  sec=s;
+  is_pm=pm;
+}
+ClockCalendar::ClockCalendar (int d, int mo, int y, int h, int m, int s, bool pm) : Clock (h, m, s, pm), Calendar (d, mo, y){
+
+}
 
 void ClockCalendar::setCalendar(){
     yr = 1900 + ltm->tm_year; //Armazena o ano

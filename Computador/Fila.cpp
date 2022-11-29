@@ -64,18 +64,40 @@ void Fila<T>::insertAfterLast(T dat,ClockCalendar* dataHora,int id)
 }
 
 template<class T>
+void Fila<T>::insertAfterLast( int id, int d, int m, int y, int h, int min, int s, T dat)
+{
+    Node<T>* p = head;
+
+    Node<T>* q = head;
+
+    if (head == 0)
+        head = new Node<T>(dat, head,id, d, m, y,h, min, s);
+
+    else
+    {
+        while (q != 0)
+        {
+            p = q;
+            q = p->getNext();
+        }
+        p->setNext(new Node<T>(dat,0, id, d, m, y,h, min, s));
+    }
+}
+
+template<class T>
 string Fila<T>::readFirst()  //Envia para a serial no formato
-{   int d,m,a,h,min,sec;           //id,dia,mes,ano,hora,min,seg,temp
+{
+    int d,m,a,h,min,sec;           //id,dia,mes,ano,hora,min,seg,temp
     bool pm;                       //separado por virgula
     //return head->getVal();
     stringstream buffer;
     head->readCalendar(d,m,a);
     head->readClock(h, min, sec,pm);
-
+    //cout << d<<"/"<<m<<"/"<<a<<endl;
     buffer << head->getId() << "," << d << "," << m << "," << a
-         << ","<< h << "," <<  min << "," <<  sec << "," << head->getVal() << endl  ;
+           << ","<< h << "," <<  min << "," <<  sec << "," << head->getVal() << endl  ;
     cout << "\nEnviando para serial:\n";
-   cout << buffer.str()<< endl;
+    cout << buffer.str()<< endl;
     return buffer.str();
 }
 
@@ -105,13 +127,15 @@ void Fila<T>::listAll()
     Node<T>* aux = head;
     int d,m,a,h,min,sec;
     bool pm;
+    cout << "\nListando todos os eventos...\n";
     cout << "========================================================================================="<<endl;
     cout << "|\t ID \t|\t Data\t \t|\t Hora \t\t|\t Temperatura\t|"<< endl;
     cout << "========================================================================================="<<endl;
     do
     {
-        aux->readCalendar(d,m,a);
-        aux->readClock(h, min, sec,pm);
+        aux->getDataHora(d,m,a,h,min,sec,pm);
+        //aux->readCalendar(d,m,a);
+        //aux->readClock(h, min, sec,pm);
 
         cout <<"|\t" << aux->getId();
         cout.fill( '0' );
@@ -127,43 +151,70 @@ void Fila<T>::listAll()
 }
 
 template<class T>
-int Fila<T>::tamanhoFila(){
-     Node<T>* aux = head;
-     int i=0;
-     while(aux != 0){
+int Fila<T>::tamanhoFila()
+{
+    Node<T>* aux = head;
+    int i=0;
+    while(aux != 0)
+    {
         aux = aux->getNext();
         i++;
-     }
-     return i;
+    }
+    return i;
 }
 
 template<class T>
 void Fila<T>::listIntervalo(int d1, int m1, int a1, int d2, int m2, int a2)
 {
     Node<T>* aux = head;
-    int d,m,a,h,min,sec;
+    int d,m,a,h,min,sec, cont =0;
     bool pm;
 
-    cout << "Listando eventos de "<< setw(2) << d1 << "/"<< setw(2) << m1 << "/" << a1 <<
-        " a " << setw(2)<< d2 << "/" << setw(2)<< m2 << "/" << a2<< endl<<endl;
-     cout << "========================================================================================="<<endl;
-    cout << "|\t ID \t|\t Data\t \t|\t Hora \t\t|\t Temperatura\t|"<< endl;
-    cout << "========================================================================================="<<endl;
-    while((d>= d1 && d <= d2 && m >= m1 &&  m <= m2 && a <= a1 && a <= a2)&& aux!=0)
+
+    do
     {
-        aux->readCalendar(d,m,a);
-        aux->readClock(h, min, sec,pm);
-
-        cout <<"|\t" << aux->getId();
-        cout.fill( '0' );
-        cout.width(2);
-        cout << "\t|\t" << setw(2)<< d << "/" << setw(2) << m << "/" << setw(2) << a << "\t|\t"
-             << setw(2)<< h << ":" << setw(2) << min << ":" << setw(2) << sec << "\t|\t";
-        cout << aux->getVal()  << " oC\t\t|"<< endl  ;
-
+        aux->getDataHora(d,m,a,h,min,sec,pm);
+        if(d >= d1 && d <= d2 && m >= m1 &&  m <= m2 && a >= a1 && a <= a2)
+            cont++;
         aux = aux->getNext();
+    }    while(aux!=0);
+
+    aux = head;
+    if(cont)
+    {
+        cout << "\nListando eventos de "<< setw(2) << d1 << "/"<< setw(2) << m1 << "/" << a1 <<
+             " a " << setw(2)<< d2 << "/" << setw(2)<< m2 << "/" << a2<< endl<<endl;
+        cout << "========================================================================================="<<endl;
+        cout << "|\t ID \t|\t Data\t \t|\t Hora \t\t|\t Temperatura\t|"<< endl;
+        cout << "========================================================================================="<<endl;
+
+
+        do
+        {
+            aux->getDataHora(d,m,a,h,min,sec,pm);
+            if(d >= d1 && d <= d2 && m >= m1 &&  m <= m2 && a >= a1 && a <= a2 )
+            {
+                //aux->readCalendar(d,m,a);
+                //aux->readClock(h, min, sec,pm);
+
+                cout <<"|\t" << aux->getId();
+                cout.fill( '0' );
+                cout.width(2);
+                cout << "\t|\t" << setw(2)<< d << "/" << setw(2) << m << "/" << setw(2) << a << "\t|\t"
+                     << setw(2)<< h << ":" << setw(2) << min << ":" << setw(2) << sec << "\t|\t";
+                cout << aux->getVal()  << " oC\t\t|"<< endl  ;
+            }
+
+              aux = aux->getNext();
+
+
+        }while(aux!=0);
+
+
+        cout << "========================================================================================="<<endl;
+
     }
+    else
+        cout << "\nNao ha dados para esse intervalo de datas!\n";
 
-
-    cout << "========================================================================================="<<endl;
 }
