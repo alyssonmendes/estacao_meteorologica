@@ -39,7 +39,7 @@ class Fila
 public:
     Fila();
     ~Fila();
-    void insertAfterLast(T dat,ClockCalendar* dataHora,int id);
+    void insertAfterLast(T dat,int id);
     void insertAfterLast( int id, int d, int m, int y, int h, int min, int s, T dat);
     string readFirst();
     void removeFirst();

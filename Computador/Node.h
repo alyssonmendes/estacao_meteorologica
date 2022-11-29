@@ -23,11 +23,11 @@ template <class T>
 class Node{
     T val;
     Node* next;
-    ClockCalendar* dataHora;
+    ClockCalendar dataHora;
     int id;
 
   public:
-    Node<T>(T dat, Node* nxt, ClockCalendar*  dataHora, int idt);
+    Node<T>(T dat, Node* nxt, int idt);
     Node(T dat, Node* nxt, int idt, int d, int m, int y, int h,int min,int s);
     ~Node();
     T getVal();

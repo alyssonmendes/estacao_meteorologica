@@ -45,13 +45,13 @@ Fila<T>::~Fila()
 }
 
 template<class T>
-void Fila<T>::insertAfterLast(T dat,ClockCalendar* dataHora,int id)
+void Fila<T>::insertAfterLast(T dat,int id)
 {
     Node<T>* p = head;
     Node<T>* q = head;
 
     if (head == 0)
-        head = new Node<T>(dat, head, dataHora, id);
+        head = new Node<T>(dat, head, id);
     else
     {
         while (q != 0)
@@ -59,7 +59,7 @@ void Fila<T>::insertAfterLast(T dat,ClockCalendar* dataHora,int id)
             p = q;
             q = p->getNext();
         }
-        p->setNext(new Node<T>(dat,0, dataHora, id));
+        p->setNext(new Node<T>(dat,0, id));
     }
 }
 
@@ -91,8 +91,7 @@ string Fila<T>::readFirst()  //Envia para a serial no formato
     bool pm;                       //separado por virgula
     //return head->getVal();
     stringstream buffer;
-    head->readCalendar(d,m,a);
-    head->readClock(h, min, sec,pm);
+    head->getDataHora(d,m,a, h, min, sec,pm);
     //cout << d<<"/"<<m<<"/"<<a<<endl;
     buffer << head->getId() << "," << d << "," << m << "," << a
            << ","<< h << "," <<  min << "," <<  sec << "," << head->getVal() << endl  ;
@@ -104,7 +103,6 @@ string Fila<T>::readFirst()  //Envia para a serial no formato
 template<class T>
 void Fila<T>::removeFirst()
 {
-    T retval = 0;
     if (head != 0)
     {
 
@@ -133,9 +131,8 @@ void Fila<T>::listAll()
     cout << "========================================================================================="<<endl;
     do
     {
+        
         aux->getDataHora(d,m,a,h,min,sec,pm);
-        //aux->readCalendar(d,m,a);
-        //aux->readClock(h, min, sec,pm);
 
         cout <<"|\t" << aux->getId();
         cout.fill( '0' );

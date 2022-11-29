@@ -2,7 +2,7 @@
 #include <ctime>
 #include<fstream>
 #include <string>
-#include "fila.cpp"
+#include "../Computador/Fila.cpp"
 #include "mySerial.cpp"
 
 using namespace std;
@@ -47,8 +47,7 @@ void readTemp()
         cout<<"Insira a temperatura: ";
         cin >> temperatura;
         id++;
-        ClockCalendar* novaLeitura;
-        temp.insertAfterLast(temperatura, novaLeitura, id);
+        temp.insertAfterLast(temperatura,id);
     }
 
 

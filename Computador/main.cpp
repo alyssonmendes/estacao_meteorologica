@@ -1,5 +1,5 @@
 #include <iostream>
-#include "fila.cpp"
+#include "Fila.cpp"
 #include <string>
 #include <fstream>
 //#include "myserial.cpp"
@@ -48,11 +48,10 @@ Menu::Menu()
                     readLine(buffer, id, d, m, y, h,min,s, temp);
                     log->insertAfterLast(id,d,m,y,h,min,s,temp);
                 }
-
-            }
-
-            cout << "Arquivo lido...\n";
-
+                cout << "Arquivo lido...\n";
+                log->listAll();
+                
+                
             /*cout << "Recebendo da Serial...\n";
               r = serial.Receive(buffer, 16);
               cout << r << endl;
@@ -62,8 +61,15 @@ Menu::Menu()
                     readLine(buffer, id, d, m, y, h,min,s, temp);
                     log->insertAfterLast(id,d,m,y,h,min,s,temp);
                 }*/
+                
+            }
+            else
+                cout<< "Arquivo nao encontrado!\n";
 
-            log->listAll();
+            
+
+
+            
 
             break;
 
