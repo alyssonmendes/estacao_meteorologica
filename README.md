@@ -1,5 +1,6 @@
 # Estação Meotorológica
 Estação Meteorológica para Disciplina de Programação de Sistemas Embarcados
 
-Arquivo principal do Computador: main.cpp
-Arquivo principal do embarcado: transmissao.cpp
+Arquivo principal do Computador: computador.cpp
+
+Arquivo principal do embarcado: raspberry.cpp
