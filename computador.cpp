@@ -46,6 +46,7 @@ Menu::Menu()
                 {
                     istringstream iss(buffer);
                     readLine(buffer, id, d, m, y, h,min,s, temp);
+                    
                     log->insertAfterLast(id,d,m,y,h,min,s,temp);
                 }
                 cout << "Arquivo lido...\n";

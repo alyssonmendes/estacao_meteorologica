@@ -25,13 +25,14 @@ Node<T>::Node(T dat, Node* nxt, int idt){
        val = dat;
        next = nxt;
        id = idt;
+       dataHora = new ClockCalendar();
 }
 
 template <class T>
 Node<T>::Node(T dat, Node* nxt, int idt, int d, int m, int y, int h,int min,int s){
        val = dat;
        next = nxt;
-       ClockCalendar dataHora(d, m, y, h,min,s);
+       dataHora = new ClockCalendar(d, m, y, h,min,s);
        id = idt;
 }
 
@@ -74,8 +75,8 @@ int Node<T>::getId(){
 
 template<class T>
 void Node<T>::getDataHora(int& d, int& m, int& y, int& h, int& min, int& sec, bool& pm){
-    dataHora.readCalendar(d,m,y);
-    dataHora.readClock(h, min, sec, pm);
+    dataHora->readCalendar(d,m,y);
+    dataHora->readClock(h, min, sec, pm);
        
     }
 

@@ -23,7 +23,7 @@ template <class T>
 class Node{
     T val;
     Node* next;
-    ClockCalendar dataHora;
+    ClockCalendar *dataHora;
     int id;
 
   public:
