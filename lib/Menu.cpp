@@ -46,8 +46,15 @@ Menu::Menu()
             Menu::gerarDadosModelo();
             break;
         case 6:
-            tempCerto.removeAll();
-            tempErrado.removeAll();
+            if(tempCerto.tamanhoFila()>=1)
+                tempCerto.removeAll();
+            else
+                cout << "Fila de certos vazia!\n";
+
+            if(tempErrado.tamanhoFila()>=1)
+                tempErrado.removeAll();
+            else
+                cout << "Fila de errados vazia!\n";
             break;
         
         default:
